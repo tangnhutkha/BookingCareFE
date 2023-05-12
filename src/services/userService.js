@@ -22,4 +22,7 @@ const deleteUserService = (userId) => {
 const editUserService = (user) => {
     return axios.put('/api/ms-user/edit', user)
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService }
+const getAllCodeService = (inputType) => {
+    return axios.get(`/api/ms-user/allcode?type=${inputType}`)
+}
+export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService }
