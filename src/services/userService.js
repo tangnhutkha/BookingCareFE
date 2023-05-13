@@ -23,6 +23,6 @@ const editUserService = (user) => {
     return axios.put('/api/ms-user/edit', user)
 }
 const getAllCodeService = (inputType) => {
-    return axios.get(`/api/ms-user/allcode?type=${inputType}`)
+    return axios.get(`/api/ms-code/allcode?type=${inputType}`)
 }
 export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService }
