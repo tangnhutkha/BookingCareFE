@@ -48,6 +48,7 @@
         "position": "Chức danh",
         "role-id": "Vai trò",
         "image": "Hình ảnh",
-        "save": "Lưu"
+        "save": "Lưu",
+        "edit": "Cập nhật"
     }
 }

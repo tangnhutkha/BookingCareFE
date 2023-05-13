@@ -27,6 +27,9 @@ class UserManage extends Component {
     handleDeleteUser(user) {
         this.props.deleteUserRedux(user.id)
     }
+    handleEditUser(user) {
+        this.props.handlleEditUserFromParentKey(user)
+    }
     render() {
         let arrUsers = this.state.usersRedux
         return (
@@ -48,7 +51,9 @@ class UserManage extends Component {
                                     <td>{item.lastName}</td>
                                     <td>{item.address}</td>
                                     <td>
-                                        <button className="btn-edit"  ><i className="far fa-edit"></i></button>
+                                        <button className="btn-edit"
+                                            onClick={() => this.handleEditUser(item)}
+                                        ><i className="far fa-edit"></i></button>
                                         <button
                                             onClick={() => this.handleDeleteUser(item)}
                                             className="btn-delete" ><i className="fas fa-trash"></i></button>
