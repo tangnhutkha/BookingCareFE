@@ -6,5 +6,12 @@
 
     &:hover{
         opacity: 0.9;
-    }
+    }  
+}
+.preview-image {
+    height: 150px;
+    width: 100%;
+    border: 1px solid #ddd;
+    background: center center no-repeat;
+    background-size: contain;
 }

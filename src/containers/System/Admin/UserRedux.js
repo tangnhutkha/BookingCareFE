@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../utils/constant'
+import { LANGUAGES, CRUD_ACTION, CommonUtils } from '../../../utils'
 import * as actions from '../../../store/actions'
-import { CRUD_ACTION } from '../../../utils/constant'
 import './UserRedux.scss'
 import TableManageUser from './TableManageUser';
 
@@ -80,10 +79,25 @@ class UserRedux extends Component {
                 position: '',
                 role: '',
                 avatar: '',
-                action: CRUD_ACTION.CREATE
+                action: CRUD_ACTION.CREATE,
+                previewImgURL: ''
             })
         }
     }
+
+    handleOnchangeImage = async (event) => {
+        let data = event.target.files
+        let file = data[0]
+        if (file) {
+            let base64 = await CommonUtils.getBase64(file)
+            let objectUrl = URL.createObjectURL(file)
+            this.setState({
+                previewImgURL: objectUrl,
+                avatar: base64
+            })
+        }
+    }
+
 
     handleSaveUser = () => {
         let isValid = this.checkValidateInput()
@@ -101,7 +115,8 @@ class UserRedux extends Component {
                 phoneNumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleId: this.state.role,
-                positionId: this.state.position
+                positionId: this.state.position,
+                avatar: this.state.avatar
             })
         }
         if (action === CRUD_ACTION.EDIT) {
@@ -116,7 +131,7 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
-                // avatar: this.state.avatar
+                avatar: this.state.avatar
             })
         }
     }
@@ -146,7 +161,12 @@ class UserRedux extends Component {
             isValid
         }
     }
-    handlleEditUserFromParent = (user) => {
+    handleEditUserFromParent = (user) => {
+        console.log('edit user :', user)
+        let imageBase64 = ''
+        if (user.image) {
+            imageBase64 = new Buffer(user.image, 'base64').toString('binary')
+        }
         this.setState({
             email: user.email,
             password: 'HASHPASSWORD',
@@ -159,9 +179,10 @@ class UserRedux extends Component {
             role: user.roleId,
             avatar: '',
             userIdEit: user.id,
-
+            previewImgURL: imageBase64,
             action: CRUD_ACTION.EDIT
         })
+
     }
     render() {
         let language = this.props.language
@@ -170,7 +191,7 @@ class UserRedux extends Component {
         let roles = this.state.roleArr
 
         let { email, password, firstName, lastName, gender,
-            phoneNumber, address, position, role } = this.state
+            phoneNumber, address, position, role, avatar } = this.state
         return (
 
             <div className="user-redux-container">
@@ -280,9 +301,12 @@ class UserRedux extends Component {
                             <div className='col-3 mt-3'>
                                 <label><FormattedMessage id="manage-user.image" /></label>
                                 <div>
-                                    <input id='previewImg' type='file' hidden></input>
+                                    <input id='previewImg' type='file' hidden onChange={(event) => this.handleOnchangeImage(event)}></input>
                                     <label className='label-upload' htmlFor='previewImg'>Tải ảnh <i className="fas fa-upload"></i></label>
-                                    <div className='preview-image'></div>
+                                    <div className='preview-image'
+                                        style={{ background: `url(${this.state.previewImgURL})` }}
+                                    >
+                                    </div>
                                 </div>
                             </div>
                             <div className='col-12 mt-4'>
@@ -297,7 +321,7 @@ class UserRedux extends Component {
                             </div>
                             <div className='col-12 mt-4'>
                                 <TableManageUser
-                                    handlleEditUserFromParentKey={this.handlleEditUserFromParent}
+                                    handleEditUserFromParentKey={this.handleEditUserFromParent}
                                     action={this.state.action}
                                 />
                             </div>

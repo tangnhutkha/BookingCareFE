@@ -28,7 +28,7 @@ class UserManage extends Component {
         this.props.deleteUserRedux(user.id)
     }
     handleEditUser(user) {
-        this.props.handlleEditUserFromParentKey(user)
+        this.props.handleEditUserFromParentKey(user)
     }
     render() {
         let arrUsers = this.state.usersRedux
