@@ -19,7 +19,7 @@ class HomePage extends Component {
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToshow: 3,
+            slidesToshow: 2,
             slidesToScroll: 1
         }
         return (
@@ -30,9 +30,11 @@ class HomePage extends Component {
                 />
                 <MedicalFacility
                     settings={settings}
-                /><OutStandingDoctor
+                />
+                <OutStandingDoctor
                     settings={settings}
-                /><HandBook
+                />
+                <HandBook
                     settings={settings}
                 />
                 <About />

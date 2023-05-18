@@ -15,14 +15,14 @@ class About extends Component {
                 </div>
                 <div className='section-about-content'>
                     <div className='content-left'>
-                        <iframe
+                        {/* <iframe
                             width="60%" height="400px"
                             src="https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1"
                             title='Youtube video player'
                             frameborder="0"
                             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture'
                             allowFullScreen>
-                        </iframe>
+                        </iframe> */}
                     </div>
                     <div className='content-right'>
                         <p>
