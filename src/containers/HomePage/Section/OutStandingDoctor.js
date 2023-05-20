@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import * as actions from "../../../store/actions"
 import { LANGUAGES } from '../../../utils/constant';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 
 
 class OutStandingDoctor extends Component {
@@ -24,6 +25,11 @@ class OutStandingDoctor extends Component {
             this.setState({
                 arrDoctors: this.props.topDoctorsRedux
             })
+        }
+    }
+    handleViewDetailDoctor = (doctor) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-doctor/${doctor.id}`)
         }
     }
     render() {
@@ -53,7 +59,8 @@ class OutStandingDoctor extends Component {
                                     let nameEn = `${item.positionData.valueVi}, ${item.firstName} ${item.lastName}`
 
                                     return (
-                                        <div className="section-customize" key={index}>
+                                        <div className="section-customize" key={index}
+                                            onClick={() => this.handleViewDetailDoctor(item)}>
                                             <div className='customize-border'>
                                                 <div className='outer-bg'>
                                                     <div className='bg-image section-outstanding-doctor'
@@ -90,4 +97,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor));
